@@ -1,0 +1,13 @@
+name = "shazid-me"
+compatibility_date = "2025-01-01"
+pages_build_output_dir = "dist"
+
+[vars]
+CONTACT_RECIPIENT_EMAIL = "hello@shazid.me"
+CONTACT_SENDER_EMAIL = "contact@shazid.me"
+
+# Cloudflare Email Service (Email Routing) Binding
+# Ensures messages submitted via /api/contact are delivered only to the verified hello@shazid.me address.
+[[send_email]]
+name = "CONTACT_EMAIL"
+destination_address = "hello@shazid.me"
