@@ -18,10 +18,13 @@ export interface Env {
   CONTACT_SENDER_EMAIL?: string;
   CONTACT_RECIPIENT_EMAIL?: string;
   // Free Telegram forward (existing bot secrets, already set in Pages dashboard).
-  // Used only as a notification copy; the mail fallback below is preserved,
-  // so a message still reaches hello@shazid.me via the visitor's mail app.
   TELEGRAM_BOT_TOKEN?: string;
   TELEGRAM_CHAT_ID?: string;
+  // Free automatic mail via Resend (server-friendly HTTPS API).
+  // Resend account must be signed up with hello@shazid.me so the test sender
+  // onboarding@resend.dev may deliver to that same address without a verified
+  // domain. The key lives only as a Pages secret, never in code.
+  RESEND_API_KEY?: string;
 }
 
 const rateLimiter = new SlidingWindowRateLimiter(5, 15 * 60 * 1000);
@@ -39,6 +42,84 @@ function jsonResponse(
       ...extraHeaders
     }
   });
+}
+
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+async function forwardTelegram(
+  env: Env,
+  waitUntil: ((promise: Promise<unknown>) => void) | undefined,
+  name: string,
+  email: string,
+  subject: string,
+  message: string
+): Promise<boolean> {
+  try {
+    const token = env.TELEGRAM_BOT_TOKEN;
+    const chatId = env.TELEGRAM_CHAT_ID;
+    if (!token || !chatId) return false;
+    const safeMessage = message.length > 3500 ? message.slice(0, 3500) + '…' : message;
+    const text =
+      '✉️ New contact message — shazid.me\n' +
+      `From: ${name} <${email}>\n` +
+      `Subject: ${subject}\n\n` +
+      safeMessage +
+      `\n\n(Reply by email to ${email})`;
+    const send = fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: chatId, text })
+    }).catch(() => {});
+    if (waitUntil) waitUntil(send);
+    else await send;
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+async function sendViaResend(
+  env: Env,
+  name: string,
+  email: string,
+  subject: string,
+  message: string
+): Promise<boolean> {
+  const apiKey = env.RESEND_API_KEY;
+  if (!apiKey) return false;
+  try {
+    const html =
+      `<p><strong>From:</strong> ${escapeHtml(name)} &lt;${escapeHtml(email)}&gt;</p>` +
+      `<p><strong>Subject:</strong> ${escapeHtml(subject)}</p>` +
+      `<p>${escapeHtml(message).replace(/\n/g, '<br>')}</p>`;
+    const response = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        from: 'Shazid.me Contact <onboarding@resend.dev>',
+        to: ['hello@shazid.me'],
+        reply_to: email,
+        subject: `Contact: ${subject}`,
+        html,
+        text: `From: ${name} <${email}>\nSubject: ${subject}\n\n${message}`
+      })
+    });
+    if (!response.ok) return false;
+    const data = (await response.json()) as { id?: string };
+    return Boolean(data.id);
+  } catch {
+    return false;
+  }
 }
 
 export const onRequestPost = async (context: {
@@ -144,36 +225,26 @@ export const onRequestPost = async (context: {
     }
   }
 
-  // 4. Telegram forward (free) + mail fallback preserved.
-  // The visitor still sees the "Send via Email App" / "Copy" fallback, so the
-  // message also reaches hello@shazid.me by mail. Telegram is only an extra
-  // instant copy, never a replacement for mail.
-  let telegram = false;
-  try {
-    const token = env.TELEGRAM_BOT_TOKEN;
-    const chatId = env.TELEGRAM_CHAT_ID;
-    if (token && chatId) {
-      const safeMessage = message.length > 3500 ? message.slice(0, 3500) + '…' : message;
-      const text =
-        '✉️ New contact message — shazid.me\n' +
-        `From: ${name} <${email}>\n` +
-        `Subject: ${subject}\n\n` +
-        safeMessage +
-        `\n\n(Reply by email to ${email})`;
-      const send = fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ chat_id: chatId, text })
-      }).catch(() => {});
-      telegram = true;
-      if (waitUntil) waitUntil(send);
-      else await send;
-    }
-  } catch {
-    telegram = false;
+  // 4. Automatic mail via Resend (free) + Telegram copy.
+  // If Resend succeeds, the visitor sees success and no fallback is needed:
+  // mail has already reached hello@shazid.me automatically, and Telegram
+  // carries an instant copy. If Resend is not configured or fails, fall
+  // through to the Telegram + manual mail fallback below.
+  const resendOk = await sendViaResend(env, name, email, subject, message);
+  const telegram = await forwardTelegram(env, waitUntil, name, email, subject, message);
+  if (resendOk) {
+    return jsonResponse({
+      ok: true,
+      provider: 'resend',
+      telegram,
+      message: 'Your message has been delivered to hello@shazid.me.'
+    });
   }
 
-  // 5. Safe fallback when Cloudflare Email Service binding is not yet configured
+  // 5. Safe fallback when no automatic mail provider is configured yet.
+  // The visitor still sees "Send via Email App" / "Copy", so the message
+  // can still reach hello@shazid.me by mail, and Telegram already carries
+  // a copy when its secrets are set.
   return jsonResponse(
     {
       ok: false,
