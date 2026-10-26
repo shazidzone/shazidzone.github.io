@@ -17,6 +17,11 @@ export interface Env {
   };
   CONTACT_SENDER_EMAIL?: string;
   CONTACT_RECIPIENT_EMAIL?: string;
+  // Free Telegram forward (existing bot secrets, already set in Pages dashboard).
+  // Used only as a notification copy; the mail fallback below is preserved,
+  // so a message still reaches hello@shazid.me via the visitor's mail app.
+  TELEGRAM_BOT_TOKEN?: string;
+  TELEGRAM_CHAT_ID?: string;
 }
 
 const rateLimiter = new SlidingWindowRateLimiter(5, 15 * 60 * 1000);
@@ -39,8 +44,9 @@ function jsonResponse(
 export const onRequestPost = async (context: {
   request: Request;
   env: Env;
+  waitUntil?: (promise: Promise<unknown>) => void;
 }): Promise<Response> => {
-  const { request, env } = context;
+  const { request, env, waitUntil } = context;
 
   // 1. Rate limiting per client IP
   const clientIp =
@@ -138,11 +144,41 @@ export const onRequestPost = async (context: {
     }
   }
 
-  // 4. Safe fallback when Cloudflare Email Service binding is not yet configured
+  // 4. Telegram forward (free) + mail fallback preserved.
+  // The visitor still sees the "Send via Email App" / "Copy" fallback, so the
+  // message also reaches hello@shazid.me by mail. Telegram is only an extra
+  // instant copy, never a replacement for mail.
+  let telegram = false;
+  try {
+    const token = env.TELEGRAM_BOT_TOKEN;
+    const chatId = env.TELEGRAM_CHAT_ID;
+    if (token && chatId) {
+      const safeMessage = message.length > 3500 ? message.slice(0, 3500) + '…' : message;
+      const text =
+        '✉️ New contact message — shazid.me\n' +
+        `From: ${name} <${email}>\n` +
+        `Subject: ${subject}\n\n` +
+        safeMessage +
+        `\n\n(Reply by email to ${email})`;
+      const send = fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: chatId, text })
+      }).catch(() => {});
+      telegram = true;
+      if (waitUntil) waitUntil(send);
+      else await send;
+    }
+  } catch {
+    telegram = false;
+  }
+
+  // 5. Safe fallback when Cloudflare Email Service binding is not yet configured
   return jsonResponse(
     {
       ok: false,
       code: 'EMAIL_SERVICE_NOT_CONFIGURED',
+      telegram,
       error:
         'Email service not configured. Please send your message directly to hello@shazid.me using the option below.'
     },
