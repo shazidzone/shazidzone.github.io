@@ -6,7 +6,7 @@ interface ProjectsProps {
   config: SiteConfig;
 }
 
-type CategoryFilter = 'all' | 'identity' | 'github' | 'upcoming';
+type CategoryFilter = 'all' | 'identity' | 'github' | 'android' | 'upcoming';
 
 interface WorkItem {
   id: string;
@@ -21,7 +21,7 @@ interface WorkItem {
   href?: string;
   ctaLabel?: string;
   isExternal?: boolean;
-  visualType: 'identity-system' | 'github-constellation' | 'upcoming-blueprint';
+  visualType: 'identity-system' | 'github-constellation' | 'android-app' | 'upcoming-blueprint';
 }
 
 export const Projects: React.FC<ProjectsProps> = ({ config }) => {
@@ -75,6 +75,22 @@ export const Projects: React.FC<ProjectsProps> = ({ config }) => {
       ctaLabel: 'Inquire or Collaborate',
       isExternal: false,
       visualType: 'upcoming-blueprint'
+    },
+    {
+      id: 'pingkalm-android',
+      index: '04',
+      category: 'android',
+      categoryLabel: 'Android App',
+      statusLabel: 'Beta · Password Protected',
+      title: 'PingKalm — Android App',
+      editorialSubtitle: 'Notification Firewall & Focus Shield',
+      description:
+        'An Android app that filters notifications — VIP emergency alarms get through while the rest waits, kept alive by a persistent background listener.',
+      meta: ['Android', 'Jetpack Compose', 'APK · 22 MB', 'v1.5.0 Beta'],
+      href: '/download-pingkalm.html',
+      ctaLabel: 'Download PingKalm',
+      isExternal: false,
+      visualType: 'android-app'
     }
   ];
 
@@ -82,9 +98,10 @@ export const Projects: React.FC<ProjectsProps> = ({ config }) => {
     filter === 'all' ? items : items.filter((item) => item.category === filter);
 
   const filterButtons: Array<{ id: CategoryFilter; label: string }> = [
-    { id: 'all', label: 'All Works (03)' },
+    { id: 'all', label: 'All Works (04)' },
     { id: 'identity', label: 'Web Identity' },
     { id: 'github', label: 'GitHub' },
+    { id: 'android', label: 'Android' },
     { id: 'upcoming', label: 'Upcoming' }
   ];
 
@@ -199,6 +216,50 @@ export const Projects: React.FC<ProjectsProps> = ({ config }) => {
             <span>Handle · @shazidzone</span>
             <span className="inline-flex items-center gap-1 text-[#F4F5F7] group-hover:text-[#3978FF] transition-colors">
               <span>Open GitHub Profile</span>
+              <ArrowUpRight className="w-3.5 h-3.5" aria-hidden="true" />
+            </span>
+          </div>
+        </div>
+      );
+    }
+
+    if (item.visualType === 'android-app') {
+      return (
+        <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden bg-gradient-to-br from-[#0E1626] via-[#090B10] to-[#101828] border border-white/[0.09] p-6 sm:p-8 flex flex-col justify-between group-hover:border-[#3978FF]/50 transition-colors duration-200">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -top-24 -right-24 w-72 h-72 rounded-full opacity-30 blur-[80px]"
+            style={{
+              background: 'radial-gradient(circle, #3978FF 0%, transparent 70%)'
+            }}
+          />
+
+          <div className="relative z-10 flex items-center justify-between text-xs font-mono text-[#8993A4] pb-4 border-b border-white/[0.07]">
+            <span>com.pingkalm.app · Android</span>
+            <span className="text-[#3978FF]">Beta · v1.5.0</span>
+          </div>
+
+          <div className="relative z-10 my-auto py-4 flex items-center gap-5 sm:gap-6">
+            <div className="shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-3xl bg-[#3978FF] flex items-center justify-center shadow-[0_0_30px_-6px_rgba(57,120,255,0.7)]">
+              <span className="font-display text-3xl sm:text-4xl font-semibold text-[#F4F5F7]">P</span>
+            </div>
+            <div className="min-w-0">
+              <p className="font-display text-2xl sm:text-4xl font-semibold text-[#F4F5F7] tracking-tight">
+                PingKalm
+              </p>
+              <p className="mt-1 font-serif-editorial italic text-lg sm:text-xl text-[#8993A4]">
+                Focus Shield · Notification Firewall
+              </p>
+              <p className="mt-2 text-xs font-mono text-[#8993A4]">
+                APK · 22 MB · Password Protected
+              </p>
+            </div>
+          </div>
+
+          <div className="relative z-10 flex items-center justify-between text-xs font-mono text-[#8993A4] pt-4 border-t border-white/[0.07]">
+            <span>Download · shazid.me</span>
+            <span className="inline-flex items-center gap-1 text-[#F4F5F7] group-hover:text-[#3978FF] transition-colors">
+              <span>Download PingKalm</span>
               <ArrowUpRight className="w-3.5 h-3.5" aria-hidden="true" />
             </span>
           </div>
