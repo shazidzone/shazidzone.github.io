@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Privacy Policy — PingKalm</title>
+<meta name="description" content="Privacy Policy for PingKalm (com.pingkalm.app). Your notifications are processed and stored on your device only — we do not receive them and we do not sell your data." />
+<link rel="canonical" href="https://shazid.me/pingkalm/privacy" />
+<script>
+(function () {
+  try {
+    var saved = localStorage.getItem('pingkalm-theme');
+    if (saved === 'light' || saved === 'dark') {
+      document.documentElement.setAttribute('data-theme', saved);
+    }
+  } catch (e) {}
+})();
+</script>
+<style>
+  * { box-sizing: border-box; }
+  :root {
+    --canvas: #F3F5F8;
+    --card: #FFFFFF;
+    --border: #E5E9F0;
+    --text: #0B0F17;
+    --muted: #5B6472;
+    --accent: #059669;
+    --accent-soft: rgba(5, 150, 105, 0.12);
+    --accent-text: #047857;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --canvas: #08090C;
+      --card: #12141A;
+      --border: #232836;
+      --text: #F8FAFC;
+      --muted: #9AA3B2;
+      --accent: #22C55E;
+      --accent-soft: rgba(34, 197, 94, 0.14);
+      --accent-text: #4ADE80;
+    }
+  }
+  :root[data-theme="dark"] {
+    --canvas: #08090C;
+    --card: #12141A;
+    --border: #232836;
+    --text: #F8FAFC;
+    --muted: #9AA3B2;
+    --accent: #22C55E;
+    --accent-soft: rgba(34, 197, 94, 0.14);
+    --accent-text: #4ADE80;
+  }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--canvas);
+    color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.65;
+  }
+  a { color: var(--accent-text); }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 20px 20px 64px; }
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 4px 0 0;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); }
+  .mark {
+    width: 38px; height: 38px; border-radius: 11px;
+    background: var(--accent); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; font-weight: 700; flex-shrink: 0;
+  }
+  .brand span { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
+  .toggle {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 8px 13px; border-radius: 999px;
+    border: 1px solid var(--border); background: var(--card); color: var(--text);
+    font-size: 13px; font-family: inherit; cursor: pointer;
+  }
+  .toggle svg { width: 15px; height: 15px; display: block; }
+  .toggle .moon { display: none; }
+  :root[data-theme="dark"] .toggle .moon { display: block; }
+  :root[data-theme="dark"] .toggle .sun { display: none; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .toggle .moon { display: block; }
+    :root:not([data-theme="light"]) .toggle .sun { display: none; }
+  }
+  main { padding-top: 40px; }
+  .badge {
+    display: inline-block;
+    background: var(--accent-soft); color: var(--accent-text);
+    font-size: 13px; font-weight: 600;
+    padding: 7px 14px; border-radius: 999px;
+  }
+  h1 {
+    margin: 18px 0 0;
+    font-size: clamp(30px, 6vw, 40px);
+    line-height: 1.15; letter-spacing: -0.02em; font-weight: 800;
+  }
+  .lede { margin: 14px 0 0; color: var(--muted); font-size: 17px; }
+  .summary {
+    margin-top: 28px;
+    background: var(--card); border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: 14px; padding: 18px 20px;
+  }
+  .summary p { margin: 0; }
+  .summary strong { color: var(--text); }
+  h2 {
+    margin: 40px 0 0;
+    font-size: 21px; line-height: 1.3; letter-spacing: -0.01em; font-weight: 700;
+  }
+  p { margin: 12px 0 0; overflow-wrap: break-word; }
+  ul { margin: 12px 0 0; padding-left: 22px; }
+  li { margin: 6px 0; overflow-wrap: break-word; }
+  li::marker { color: var(--accent-text); }
+  .perm { font-weight: 600; }
+  footer {
+    margin-top: 56px; padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between;
+    color: var(--muted); font-size: 13px;
+  }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--text); }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="/pingkalm">
+        <span class="mark" aria-hidden="true">P</span>
+        <span>PingKalm</span>
+      </a>
+      <button class="toggle" id="theme-toggle" type="button" aria-label="Toggle light and dark mode">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" /></svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z" /></svg>
+        <span id="theme-label">Dark</span>
+      </button>
+    </header>
+
+    <main>
+      <span class="badge">Last updated: 20 November 2026</span>
+      <h1>Privacy Policy</h1>
+      <p class="lede">PingKalm (&ldquo;the app&rdquo;, package <code>com.pingkalm.app</code>) is made by Shazid Mahmud. This policy explains what information the app accesses, how it is used, and what never leaves your device. By using PingKalm, you agree to this policy.</p>
+
+      <div class="summary">
+        <p><strong>The short version:</strong> PingKalm reads your notifications on your phone to power its features, and stores everything on your device. We do not run servers that receive your notifications, and we do not sell your data.</p>
+      </div>
+
+      <h2>1. Information the app accesses</h2>
+      <p>PingKalm does not ask you to create an account, and it does not collect your name, email address, phone number or password.</p>
+      <p>When you grant Notification Access, the app can read incoming notifications — the sending app, the sender, the message text and the time. This is used only to provide the app&rsquo;s features:</p>
+      <ul>
+        <li><strong>Auto-cleaner:</strong> to identify and clear spam and promotional notifications from your status bar.</li>
+        <li><strong>Private Vault &amp; Unsent Chat Recovery:</strong> to keep a copy of messages that are later deleted or unsent, so you can still read them.</li>
+        <li><strong>Cashflow ledger:</strong> to read MFS and bank alerts (for example bKash, Nagad and bank messages) and sort them into a local cashflow ledger.</li>
+        <li><strong>Focus Mode and Quiet Hours:</strong> to hold or silence notifications on the schedule you set.</li>
+      </ul>
+      <p>The app also uses Google AdMob to show ads. AdMob may collect your device&rsquo;s advertising ID and general device information to serve ads (see Section 5).</p>
+
+      <h2>2. How your information is used</h2>
+      <p>Notification content is processed <strong>on your device only</strong> and used solely to provide the features listed above. It is never uploaded to our servers, because we do not operate servers that receive it. It is never used to build an advertising profile by us.</p>
+
+      <h2>3. On-device storage</h2>
+      <p>Your vault messages, ledger entries and app settings are stored in a database on your device only. No other person or device can access them through us. You can erase all of it at any time by clearing the app&rsquo;s storage in Android Settings, or by uninstalling the app — both remove the local data from your phone.</p>
+
+      <h2>4. Permissions the app requests</h2>
+      <ul>
+        <li><span class="perm">Notification Access</span> — to read notifications so the cleaner, vault, ledger and Focus Mode can work.</li>
+        <li><span class="perm">Post Notifications</span> — to show you PingKalm&rsquo;s own alerts.</li>
+        <li><span class="perm">Run at startup</span> — to restart the notification listener after your phone reboots.</li>
+        <li><span class="perm">Ignore battery optimisations</span> — so Android does not stop the listener in the background.</li>
+        <li><span class="perm">Biometric / fingerprint</span> — optional, only if you choose to lock the app with your fingerprint or face.</li>
+        <li><span class="perm">Internet access</span> — only to load ads from Google AdMob. Your notifications are not sent over the internet.</li>
+      </ul>
+      <p>You can revoke any permission at any time in Android Settings. Some features will stop working if the permission they need is revoked.</p>
+
+      <h2>5. Advertising</h2>
+      <p>PingKalm shows ads served by Google AdMob. AdMob may collect your advertising ID and coarse device information to deliver and measure ads, according to <a href="https://policies.google.com/privacy" rel="noopener">Google&rsquo;s Privacy Policy</a>. You can reset your advertising ID or opt out of personalised ads in Android Settings &gt; Privacy &gt; Ads. We do not receive any personal information from AdMob about you.</p>
+
+      <h2>6. Information sharing</h2>
+      <p>We do not sell, rent or share your personal information with anyone. The only third party involved is Google AdMob, which receives ad-related identifiers as described in Section 5. We will disclose information only if required by law or to protect the safety of our users.</p>
+
+      <h2>7. Data retention and deletion</h2>
+      <p>Because all of your data stays on your device, we hold no copy of it and there is nothing for us to delete on a server. Your data remains on your phone until you delete it yourself — by clearing the app&rsquo;s storage in Android Settings or by uninstalling the app.</p>
+
+      <h2>8. Children&rsquo;s privacy</h2>
+      <p>PingKalm is not directed at children under 13, and we do not knowingly collect personal information from children. If you believe a child has provided information through the app, please contact us and we will help remove any locally stored data.</p>
+
+      <h2>9. Security</h2>
+      <p>Your data is protected by staying on your device, and you can add an extra layer with the app&rsquo;s optional biometric lock. No method of storage is completely secure, and keeping your phone&rsquo;s lock screen and software up to date is the best protection for on-device data.</p>
+
+      <h2>10. Changes to this policy</h2>
+      <p>We may update this policy from time to time. When we do, the &ldquo;Last updated&rdquo; date at the top of this page will change, and the new version will apply from that date. Continued use of the app after a change means you accept the updated policy.</p>
+
+      <h2>11. Contact us</h2>
+      <p>If you have any questions about this policy or about PingKalm, write to us at <a href="mailto:hello@shazid.me">hello@shazid.me</a>.</p>
+    </main>
+
+    <footer>
+      <span>&copy; 2026 Shazid Mahmud &middot; PingKalm</span>
+      <span><a href="/pingkalm">PingKalm</a> &nbsp;&middot;&nbsp; <a href="mailto:hello@shazid.me">hello@shazid.me</a> &nbsp;&middot;&nbsp; <a href="/">shazid.me</a></span>
+    </footer>
+  </div>
+<script>
+(function () {
+  var root = document.documentElement;
+  var label = document.getElementById('theme-label');
+  var btn = document.getElementById('theme-toggle');
+  function isDark() {
+    if (root.getAttribute('data-theme') === 'dark') return true;
+    if (root.getAttribute('data-theme') === 'light') return false;
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+  function sync() { label.textContent = isDark() ? 'Light' : 'Dark'; }
+  sync();
+  btn.addEventListener('click', function () {
+    var next = isDark() ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('pingkalm-theme', next); } catch (e) {}
+    sync();
+  });
+})();
+</script>
+</body>
+</html>
