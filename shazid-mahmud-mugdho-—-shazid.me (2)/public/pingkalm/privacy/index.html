@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Privacy Policy — PingKalm</title>
-<meta name="description" content="Privacy Policy for PingKalm (com.pingkalm.app). Your notifications are processed and stored on your device only — we do not receive them and we do not sell your data." />
+<meta name="description" content="Privacy Policy for PingKalm (com.pingkalm.app). Notifications are processed and stored on your device only; ads are served by Google AdMob." />
 <link rel="canonical" href="https://shazid.me/pingkalm/privacy" />
 <script>
 (function () {
@@ -59,6 +59,12 @@
     line-height: 1.65;
   }
   a { color: var(--accent-text); }
+  code {
+    background: var(--accent-soft);
+    padding: 1px 6px;
+    border-radius: 6px;
+    font-size: 0.92em;
+  }
   .wrap { max-width: 760px; margin: 0 auto; padding: 20px 20px 64px; }
   header {
     display: flex;
@@ -144,62 +150,63 @@
     </header>
 
     <main>
-      <span class="badge">Last updated: 20 November 2026</span>
+      <span class="badge">Effective Date: 22 November 2026</span>
       <h1>Privacy Policy</h1>
-      <p class="lede">PingKalm (&ldquo;the app&rdquo;, package <code>com.pingkalm.app</code>) is made by Shazid Mahmud. This policy explains what information the app accesses, how it is used, and what never leaves your device. By using PingKalm, you agree to this policy.</p>
+      <p class="lede">PingKalm (&ldquo;the app&rdquo;, package <code>com.pingkalm.app</code>) is made by Shazid Mahmud. This policy explains what information the app accesses, how it is used, what stays on your device, and what Google AdMob may collect to show ads. By using PingKalm, you agree to this policy.</p>
 
       <div class="summary">
-        <p><strong>The short version:</strong> PingKalm reads your notifications on your phone to power its features, and stores everything on your device. We do not run servers that receive your notifications, and we do not sell your data.</p>
+        <p><strong>The short version:</strong> Your notifications are read, organised and stored on your device only — we never receive them, and we never sell them. The app shows ads served by Google AdMob, and AdMob may collect advertising identifiers and diagnostics as described in Section 4.</p>
       </div>
 
-      <h2>1. Information the app accesses</h2>
-      <p>PingKalm does not ask you to create an account, and it does not collect your name, email address, phone number or password.</p>
-      <p>When you grant Notification Access, the app can read incoming notifications — the sending app, the sender, the message text and the time. This is used only to provide the app&rsquo;s features:</p>
+      <h2>1. No account, no sign-up</h2>
+      <p>PingKalm requires no sign-up, login, or account creation. The app does not ask for your name, email address, phone number or password, and it does not create any account or profile for you.</p>
+
+      <h2>2. Local-only notification processing</h2>
+      <p>When you grant Notification Access, the app can read incoming notifications — the sending app, the sender, the message text and the time. All captured notifications, Focus Mode settings, and locally parsed MFS and bank transaction alerts (for example bKash, Nagad, Rocket and bank messages) are processed and stored <strong>strictly on your device</strong>, and used only to provide the app&rsquo;s features:</p>
       <ul>
         <li><strong>Auto-cleaner:</strong> to identify and clear spam and promotional notifications from your status bar.</li>
         <li><strong>Private Vault &amp; Unsent Chat Recovery:</strong> to keep a copy of messages that are later deleted or unsent, so you can still read them.</li>
-        <li><strong>Cashflow ledger:</strong> to read MFS and bank alerts (for example bKash, Nagad and bank messages) and sort them into a local cashflow ledger.</li>
+        <li><strong>Cashflow ledger:</strong> to read MFS and bank alerts and sort them into a local cashflow ledger.</li>
         <li><strong>Focus Mode and Quiet Hours:</strong> to hold or silence notifications on the schedule you set.</li>
       </ul>
-      <p>The app also uses Google AdMob to show ads. AdMob may collect your device&rsquo;s advertising ID and general device information to serve ads (see Section 5).</p>
+      <p>Notification content is <strong>never uploaded, shared, sold, or transmitted to any external server</strong>. We do not operate servers that receive your notifications, and notification content is never used to build an advertising profile by us.</p>
+      <p>Android cloud backup is disabled for the app (<code>allowBackup=&quot;false&quot;</code>), so your notification data and vault contents are not copied to any cloud backup. They exist only on your device.</p>
 
-      <h2>2. How your information is used</h2>
-      <p>Notification content is processed <strong>on your device only</strong> and used solely to provide the features listed above. It is never uploaded to our servers, because we do not operate servers that receive it. It is never used to build an advertising profile by us.</p>
-
-      <h2>3. On-device storage</h2>
-      <p>Your vault messages, ledger entries and app settings are stored in a database on your device only. No other person or device can access them through us. You can erase all of it at any time by clearing the app&rsquo;s storage in Android Settings, or by uninstalling the app — both remove the local data from your phone.</p>
-
-      <h2>4. Permissions the app requests</h2>
+      <h2>3. Permissions we request</h2>
+      <p>PingKalm requests the following permissions. Each one is used only for the purpose stated here, and you can revoke any permission at any time in Android Settings — though some features will stop working if the permission they need is revoked.</p>
       <ul>
-        <li><span class="perm">Notification Access</span> — to read notifications so the cleaner, vault, ledger and Focus Mode can work.</li>
+        <li><span class="perm">Notification Access</span> (<code>NotificationListenerService</code>) — used solely to organise, filter, silence (Focus Mode), and locally parse notifications on your device. The app never sends notification content anywhere.</li>
+        <li><span class="perm">Do Not Disturb (DND) access</span> — used only when you enable Focus Mode, to silence notifications while Focus Mode is on. When you turn Focus Mode off, or after your phone reboots, PingKalm restores your previous Do Not Disturb state.</li>
         <li><span class="perm">Post Notifications</span> — to show you PingKalm&rsquo;s own alerts.</li>
-        <li><span class="perm">Run at startup</span> — to restart the notification listener after your phone reboots.</li>
+        <li><span class="perm">Run at startup</span> — to restart the notification listener and restore Focus Mode after your phone reboots.</li>
         <li><span class="perm">Ignore battery optimisations</span> — so Android does not stop the listener in the background.</li>
         <li><span class="perm">Biometric / fingerprint</span> — optional, only if you choose to lock the app with your fingerprint or face.</li>
         <li><span class="perm">Internet access</span> — only to load ads from Google AdMob. Your notifications are not sent over the internet.</li>
       </ul>
-      <p>You can revoke any permission at any time in Android Settings. Some features will stop working if the permission they need is revoked.</p>
+      <p>PingKalm respects Android 15+ sensitive notification and one-time password (OTP) protections: notifications that Android marks as sensitive, including OTP codes, are handled only as the system allows and are never extracted, uploaded or shared.</p>
 
-      <h2>5. Advertising</h2>
-      <p>PingKalm shows ads served by Google AdMob. AdMob may collect your advertising ID and coarse device information to deliver and measure ads, according to <a href="https://policies.google.com/privacy" rel="noopener">Google&rsquo;s Privacy Policy</a>. You can reset your advertising ID or opt out of personalised ads in Android Settings &gt; Privacy &gt; Ads. We do not receive any personal information from AdMob about you.</p>
+      <h2>4. Advertising and third-party services</h2>
+      <p>While your notification data stays completely on your device, PingKalm uses <strong>Google AdMob</strong> to display ads, and the <strong>Google User Messaging Platform (UMP) SDK</strong> to manage your ad consent choices.</p>
+      <p>AdMob may collect device identifiers (such as your Advertising ID), IP address, and diagnostics to serve and measure ads. This data is collected by Google, not by us, and is governed by <a href="https://policies.google.com/privacy" rel="noopener">Google&rsquo;s Privacy Policy</a>.</p>
+      <p>You can reset your Advertising ID or opt out of personalised ads in Android Settings &gt; Privacy &gt; Ads. You can change your ad consent choices at any time from the app&rsquo;s settings, where the UMP consent form is available. We do not receive any personal information from AdMob about you.</p>
 
-      <h2>6. Information sharing</h2>
-      <p>We do not sell, rent or share your personal information with anyone. The only third party involved is Google AdMob, which receives ad-related identifiers as described in Section 5. We will disclose information only if required by law or to protect the safety of our users.</p>
+      <h2>5. Information sharing</h2>
+      <p>We do not sell, rent or share your personal information with anyone. The only third party involved is Google AdMob, which receives ad-related identifiers as described in Section 4. We will disclose information only if required by law or to protect the safety of our users.</p>
 
-      <h2>7. Data retention and deletion</h2>
-      <p>Because all of your data stays on your device, we hold no copy of it and there is nothing for us to delete on a server. Your data remains on your phone until you delete it yourself — by clearing the app&rsquo;s storage in Android Settings or by uninstalling the app.</p>
+      <h2>6. Data retention and deletion</h2>
+      <p>Because all of your data is stored locally on your device, we hold no copy of it and there is nothing for us to delete on a server. Your data remains on your phone until you delete it yourself — you can permanently delete all data at any time by clearing data inside the app or in Android Settings, or by uninstalling PingKalm.</p>
 
-      <h2>8. Children&rsquo;s privacy</h2>
-      <p>PingKalm is not directed at children under 13, and we do not knowingly collect personal information from children. If you believe a child has provided information through the app, please contact us and we will help remove any locally stored data.</p>
+      <h2>7. Children&rsquo;s privacy</h2>
+      <p>PingKalm is not directed to children under 13, and we do not knowingly collect personal information from children. If you believe a child has provided information through the app, please contact us and we will help remove any locally stored data.</p>
 
-      <h2>9. Security</h2>
-      <p>Your data is protected by staying on your device, and you can add an extra layer with the app&rsquo;s optional biometric lock. No method of storage is completely secure, and keeping your phone&rsquo;s lock screen and software up to date is the best protection for on-device data.</p>
+      <h2>8. Security</h2>
+      <p>Your data is protected by staying on your device, with Android cloud backup disabled (<code>allowBackup=&quot;false&quot;</code>), and you can add an extra layer with the app&rsquo;s optional biometric lock. No method of storage is completely secure, and keeping your phone&rsquo;s lock screen and software up to date is the best protection for on-device data.</p>
 
-      <h2>10. Changes to this policy</h2>
-      <p>We may update this policy from time to time. When we do, the &ldquo;Last updated&rdquo; date at the top of this page will change, and the new version will apply from that date. Continued use of the app after a change means you accept the updated policy.</p>
+      <h2>9. Changes to this policy</h2>
+      <p>We may update this policy from time to time. When we do, the &ldquo;Effective Date&rdquo; at the top of this page will change, and the new version will apply from that date. Continued use of the app after a change means you accept the updated policy.</p>
 
-      <h2>11. Contact us</h2>
-      <p>If you have any questions about this policy or about PingKalm, write to us at <a href="mailto:hello@shazid.me">hello@shazid.me</a>.</p>
+      <h2>10. Contact us</h2>
+      <p>If you have any questions about this policy or about PingKalm, including any privacy inquiry, write to us at <a href="mailto:hello@shazid.me">hello@shazid.me</a>.</p>
     </main>
 
     <footer>
