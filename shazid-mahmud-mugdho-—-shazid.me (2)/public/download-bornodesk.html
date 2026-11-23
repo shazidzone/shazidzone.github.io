@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>BornoDesk — Download · shazid.me</title>
+<meta name="description" content="Download BornoDesk for Android (v1.0.0) — password protected." />
+<meta name="robots" content="noindex, nofollow" />
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: #090b10;
+    color: #f4f5f7;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+  }
+  .wrap { width: 100%; max-width: 480px; }
+  .back {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #8993a4;
+    font-size: 13px;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    text-decoration: none;
+  }
+  .back:hover { color: #f4f5f7; }
+  .card {
+    background: #151922;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 32px 28px;
+  }
+  .icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 18px;
+    background: #3978ff;
+    color: #f4f5f7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: 600;
+    box-shadow: 0 0 30px -6px rgba(57, 120, 255, 0.7);
+  }
+  .eyebrow {
+    margin: 20px 0 0;
+    color: #3978ff;
+    font-size: 12px;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  h1 { margin: 8px 0 0; font-size: 32px; letter-spacing: -0.02em; }
+  .sub { margin: 6px 0 0; color: #8993a4; font-style: italic; font-size: 18px; }
+  .desc { margin: 16px 0 0; color: #8993a4; font-size: 15px; line-height: 1.6; font-weight: 300; }
+  form { margin-top: 24px; }
+  label {
+    display: block;
+    margin-bottom: 8px;
+    color: #8993a4;
+    font-size: 12px;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  input {
+    width: 100%;
+    padding: 13px 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: #090b10;
+    color: #f4f5f7;
+    font-size: 16px;
+    outline: none;
+  }
+  input:focus { border-color: #3978ff; box-shadow: 0 0 0 3px rgba(57, 120, 255, 0.25); }
+  .error { margin: 10px 0 0; color: #ff6b6b; font-size: 13px; }
+  button, .button {
+    display: block;
+    width: 100%;
+    margin-top: 16px;
+    padding: 13px 16px;
+    border: 0;
+    border-radius: 10px;
+    background: #3978ff;
+    color: #f4f5f7;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  button:hover, .button:hover { background: #2f68e8; }
+  button:disabled { opacity: 0.6; cursor: wait; }
+  .ok { margin: 24px 0 0; color: #4ade80; font-size: 14px; }
+  .hint { margin: 14px 0 0; color: #8993a4; font-size: 13px; line-height: 1.6; }
+  .hash {
+    margin: 18px 0 0;
+    color: #8993a4;
+    font-size: 11px;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    word-break: break-all;
+    line-height: 1.6;
+  }
+  .foot {
+    margin: 20px 0 0;
+    text-align: center;
+    color: #8993a4;
+    font-size: 12px;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  }
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <a class="back" href="/">&larr; shazid.me</a>
+    <div class="card">
+      <div class="icon" aria-hidden="true">B</div>
+      <p class="eyebrow">Android &middot; v1.0.0</p>
+      <h1>BornoDesk</h1>
+      <p class="sub">Discover, Pair &amp; Ping PCs on Your Local Network</p>
+      <p class="desc">Find BornoDesk PCs on your local WiFi, pair with a QR scan, and watch live ping with an RTT chart. APK &middot; 80 MB.</p>
+
+      <form id="gate">
+        <label for="password">Download password</label>
+        <input id="password" type="password" autocomplete="off" placeholder="Enter password" required />
+        <p id="error" class="error" hidden></p>
+        <button type="submit" id="submit">Unlock download</button>
+      </form>
+
+      <div id="ready" hidden>
+        <p class="ok">Password accepted.</p>
+        <a id="download" class="button" href="https://github.com/shazidzone/shazidzone.github.io/releases/download/bornodesk-v1.0.0/BornoDesk-v1.0.apk" download="BornoDesk-v1.0.apk">Download APK &middot; 80 MB</a>
+        <p class="hint">Android may ask you to allow installs from your browser &mdash; allow it once to install.</p>
+      </div>
+
+      <p class="hash">SHA-256<br />3447824943af9f1d36c441c045fdc73537b45129764bef3cd2e3ad5d2e30dd52</p>
+    </div>
+    <p class="foot">shazid.me &middot; BornoDesk v1.0.0</p>
+  </main>
+<script>
+  var form = document.getElementById('gate');
+  var input = document.getElementById('password');
+  var error = document.getElementById('error');
+  var ready = document.getElementById('ready');
+  var submit = document.getElementById('submit');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    error.hidden = true;
+    submit.disabled = true;
+    submit.textContent = 'Checking\u2026';
+    fetch('/api/download-bornodesk', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: input.value })
+    })
+      .then(function (res) { return res.json().then(function (data) { return { res: res, data: data }; }); })
+      .then(function (out) {
+        if (!out.res.ok || !out.data.ok) throw new Error(out.data.error || 'Incorrect password. Please try again.');
+        document.getElementById('download').href = out.data.url;
+        form.hidden = true;
+        ready.hidden = false;
+      })
+      .catch(function (err) {
+        error.textContent = err.message;
+        error.hidden = false;
+        input.select();
+      })
+      .finally(function () {
+        submit.disabled = false;
+        submit.textContent = 'Unlock download';
+      });
+  });
+</script>
+</body>
+</html>
